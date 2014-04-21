@@ -20,9 +20,7 @@ public class OffHoursMonitor extends AmazonBase {
 
   	OffHoursMonitor() {
   		super(playDays);  		
-  		
-  		initAmazon();
- 	
+  		 	
   		while( true ) {
   			boolean offHours = isOffHours();
   			System.out.println( "offHours = " + offHours );
@@ -43,7 +41,10 @@ public class OffHoursMonitor extends AmazonBase {
  
   	}
 
-    
+    /**
+     * Get the pid of the running minecraft java process
+     * @return the pid as a string
+     */
 	private static String getMineCraftJavaPid() {
 		BufferedReader reader = null;
 		try {

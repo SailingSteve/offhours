@@ -17,7 +17,6 @@ import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider;
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.s3.AmazonS3;
@@ -38,13 +37,14 @@ public class AmazonBase {
   	
   	protected AmazonBase(PlayDay[] playDays) {
   		this.playDays = playDays;
+  		initAmazon();
     }
   	
   	protected void setPlayDays( PlayDay[] playDays) {
   		this.playDays = playDays;
   	}
   	
-  	protected static void initAmazon() {
+  	private void initAmazon() {
   		try {
   			AWSCredentialsProvider credentialsProvider = new ClasspathPropertiesFileCredentialsProvider();
 
@@ -73,7 +73,6 @@ public class AmazonBase {
   			userName = line.trim();
   			s3logger("STARTUP path is '" + path + "', computerName is '" + computerName + "', whoami is '" + userName);
   			logger(  "STARTUP path is '" + path + "', computerName is '" + computerName + "', whoami is '" + userName);
-	  
   		}
   		catch(Exception e) {
   			System.out.println( "Caught error exception : " + e.getStackTrace());

@@ -40,18 +40,9 @@ public class MineStarter extends AmazonBase {
 		new PlayDay(Calendar.SATURDAY, 6, 22)
   	};
 	
-    public static void main(String[] args) throws Exception {   	
-        System.out.println("================== MineStarter =========================");
-  		//System.out.println( "STEVE:" + System.getProperty("java.class.path"));
-
-        new MineStarter(playDays, args);
-    }   
-    
     protected MineStarter(PlayDay[] playDays, String[] args) {
 		super(playDays);
-		
-        initAmazon();
-        
+		       
         if ( args.length > 0 ) {
         	String arg0 = args[0];
         	if( arg0.equalsIgnoreCase("start") ) {
@@ -62,7 +53,8 @@ public class MineStarter extends AmazonBase {
         	else if( arg0.equalsIgnoreCase("stop") ) {
                 System.out.println("\nStop em:");
                 startStopInstance( false, "i-f7ace9ff" );
-                s3logger("Stopping ec2 instance i-f7ace9ff");         	}
+                s3logger("Stopping ec2 instance i-f7ace9ff");         	
+            }
         	else if( arg0.equalsIgnoreCase("status") ) {
         		status(true);
         	}
@@ -119,6 +111,11 @@ public class MineStarter extends AmazonBase {
     	return status( false );
     }
     
+    /**
+     * Do a status check on the instance
+     * @param doPrintlns, println a bunch of status messages about the state of the instance
+     * @return the date at which the instance was start4d
+     */
     private static Date status( boolean doPrintlns ) {
     	try {
         	String[] sa = {"us-west-2a", "us-west-2b", "us-west-2c"};
@@ -167,6 +164,9 @@ public class MineStarter extends AmazonBase {
     	return null;
     }
     
+    /**
+     * A daemon method that kills any minecraft processes that are off hours
+     */
      private void daemon() {
    		while( true ) {
    			Date launch = status();  
@@ -195,6 +195,20 @@ public class MineStarter extends AmazonBase {
   			//System.out.println("bottom of loop, pid = " + pid);
   		}	
     }
+
+     /**
+      * The main
+      * @param args, a string command from the set {start, stop, status, daemon}
+      * @throws Exception
+      */
+     public static void main(String[] args) throws Exception {   	
+         System.out.println("================== MineStarter =========================");
+   		//System.out.println( "STEVE:" + System.getProperty("java.class.path"));
+
+         new MineStarter(playDays, args);
+     }   
+     
+
 }
 
 /*
