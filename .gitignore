@@ -2,3 +2,6 @@
 /bin
 */.DS_Store
 /offhours
+.DS_Store
+/lib
+/creds
