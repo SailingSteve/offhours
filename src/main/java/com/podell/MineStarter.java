@@ -74,7 +74,6 @@ public class MineStarter extends AmazonBase {
         } 
         else
         	System.out.println("No arguments passed to main!");
-  		
 	}
         
     private static List<String> getInstanceList(String sInstanceId) {
