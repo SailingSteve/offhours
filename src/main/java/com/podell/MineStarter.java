@@ -82,7 +82,7 @@ public class MineStarter extends AmazonBase {
         return al;
     }
     
-    
+
     private static boolean startStopInstance( boolean bStart, String sInstanceId )
     {
     	List<String> al = getInstanceList(sInstanceId);
@@ -110,7 +110,7 @@ public class MineStarter extends AmazonBase {
     private static Date status() {
     	return status( false );
     }
-    
+
     /**
      * Do a status check on the instance
      * @param doPrintlns, println a bunch of status messages about the state of the instance

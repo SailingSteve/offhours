@@ -22,7 +22,10 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>main.java.com.podell.MineStarter</mainClass>
+<!--                
+			  <mainClass>main.java.com.podell.MineStarter</mainClass>    
+-->
+              <mainClass>main.java.com.podell.OffHoursMonitor</mainClass>
             </manifest>
             <manifestEntries>
                 <Class-Path>/Users/stevepodell/aws-java-sdk/</Class-Path>
@@ -37,7 +40,10 @@
         <configuration>
           <programs>
             <program>
+<!--                
               <mainClass>main.java.com.podell.MineStarter</mainClass>
+-->
+              <mainClass>main.java.com.podell.OffHoursMonitor</mainClass>
               <id>app</id>
             </program>
           </programs>
@@ -57,8 +63,13 @@
       <artifactId>aws-java-sdk</artifactId>
       <version>1.7.5</version>
     </dependency>
+    <dependency>
+	  <groupId>javax.mail</groupId>
+	  <artifactId>mail</artifactId>
+	  <version>1.4.7</version>
+    </dependency>
   </dependencies>
-    
+               
 
   <artifactId>offhours</artifactId>
 </project>

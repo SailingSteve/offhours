@@ -1,6 +1,7 @@
 package main.java.com.podell;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.BufferedReader;
@@ -18,8 +19,9 @@ public class OffHoursMonitor extends AmazonBase {
 		new PlayDay(Calendar.SATURDAY, 6, 22)
   	};
 
-  	OffHoursMonitor() {
-  		super(playDays);  		
+  	OffHoursMonitor(String computer) {
+  		super(playDays);  
+  		Calendar calEmailSent = null;
   		 	
   		while( true ) {
   			boolean offHours = isOffHours();
@@ -29,8 +31,18 @@ public class OffHoursMonitor extends AmazonBase {
 
   			if( ( ! pid.isEmpty() ) && ( offHours ) ) {
   				System.out.println( "pid = " + pid );
-  				killPid(pid);
-  				warning();
+  				//killPid(pid);
+				//warning();
+  				if( calEmailSent == null ) {
+  					calEmailSent = getNowPST();
+  					new SendEmail().sendGMail("Minecraft is running on " + computer, "Detected by the OffHoursMonitor Java program. (" + pid + ")" );
+  				    s3logger("Minecraft is running on " + computer + ".  First detection by the OffHoursMonitor Java program. (" + pid + ")" );
+  				} else if( minutesSince(calEmailSent) > 10 ) {
+  					calEmailSent = getNowPST();
+  					new SendEmail().sendGMail("Minecraft is running on " + computer, "Detected by the OffHoursMonitor Java program. (" + pid + ")" );
+  				}
+  			} else {
+  				calEmailSent = null;
   			}
  	  
   			try {
@@ -61,7 +73,7 @@ public class OffHoursMonitor extends AmazonBase {
 					continue; 
 				}			  
     		  
-				System.out.println(", line = " + line);
+				//System.out.println(", line = " + line);
 				Matcher matcher = pattern.matcher(line);
 
 				if( matcher.find() ) {
@@ -70,8 +82,8 @@ public class OffHoursMonitor extends AmazonBase {
 						continue; 
 					}
 				String pid = matcher.group(1);
-				System.out.println("pid : " + pid + ", line = " + line);
-				s3logger("Found running instance => " + line);
+				//System.out.println("pid : " + pid + ", line = " + line);
+				//s3logger("Found running instance => " + line);
 				return pid;
 				}
 			}
@@ -113,10 +125,14 @@ public class OffHoursMonitor extends AmazonBase {
 	   * Main  Minecraft off hours process killer
 	   * https://github.com/SailingSteve/offhours.git
 	   * Steve Podell
-	   * @param args
+	   * @param args 0: computer name
 	   */
 	  	public static void main(String[] args) {
-	  		new OffHoursMonitor();
+	  		System.out.println( "STEVE:" + System.getProperty("java.class.path"));
+	  		String computer = "NOT-DEFINED";
+	  		if( args.length > 0 )
+	  			computer = args[0];
+	  		new OffHoursMonitor(computer);
 	 	}
 	 
 }

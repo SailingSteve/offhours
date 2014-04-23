@@ -160,6 +160,14 @@ public class AmazonBase {
 		catch(IOException e){} 
 	}  
 
+	protected int minutesSince(Calendar calIn) {
+		Calendar calNow = getNowPST();
+		int minIn = ( calIn.get(Calendar.HOUR_OF_DAY) * 60 ) + calIn.get(Calendar.MINUTE);
+		int minNow = ( calNow.get(Calendar.HOUR_OF_DAY) * 60 ) + calNow.get(Calendar.MINUTE);
+		return minNow - minIn;
+	}
+	
+	
 	protected boolean isOffHours() {
 		Calendar cal = getNowPST();
 	  
