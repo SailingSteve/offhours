@@ -1,7 +1,7 @@
 package main.java.com.podell;
 
+import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.BufferedReader;
@@ -28,7 +28,7 @@ public class OffHoursMonitor extends AmazonBase {
   		while( true ) {
   			boolean offHours = isOffHours();
   			String pid = getMineCraftJavaPid();
-  			calLastLog = logEvery( calLastLog, 5, "offHours = " + offHours + (String)(( pid.isEmpty() ) ? "" : ", pid = " + pid ));
+  			calLastLog = logEvery( calLastLog, 5, AmazonBase.logDate() + " ->  offHours = " + offHours + (String)(( pid.isEmpty() ) ? "" : ", pid = " + pid ));
  
 
   			if( ( ! pid.isEmpty() ) && ( offHours ) ) {
@@ -51,7 +51,6 @@ public class OffHoursMonitor extends AmazonBase {
   			try {
   				Thread.sleep( offHours ? 5000 : 300000 );
   			} catch (InterruptedException e) {}
-  			//System.out.println("bottom of loop, pid = " + pid);
   		}
  
   	}
@@ -85,7 +84,6 @@ public class OffHoursMonitor extends AmazonBase {
 
 			for(line = reader.readLine(); line != null; line = reader.readLine() ) { 
 				if( line.contains(" grep ") ) {
-					//System.out.println("Rejected line = " + line);
 					continue; 
 				}			  
     		  
@@ -94,12 +92,9 @@ public class OffHoursMonitor extends AmazonBase {
 
 				if( matcher.find() ) {
 					if( ( matcher.groupCount() == 0 ) || ( matcher.group(1).length() < 1 ) ) {
-						// System.out.println("No match line = " + line);
 						continue; 
 					}
 				String pid = matcher.group(1);
-				//System.out.println("pid : " + pid + ", line = " + line);
-				//s3logger("Found running instance => " + line);
 				return pid;
 				}
 			}
@@ -114,6 +109,7 @@ public class OffHoursMonitor extends AmazonBase {
 		return "";
 	}	
     
+	@SuppressWarnings(value = { "unused" })
 	private static void killPid( String pid ) {
 		try {
 			Runtime.getRuntime().exec("kill " + pid);
@@ -124,6 +120,7 @@ public class OffHoursMonitor extends AmazonBase {
 		catch(Exception e) {}
 	}
 
+	@SuppressWarnings(value = { "unused" })
 	private static void warning() {
 		String applescriptCommand =  
 	      "tell app \"System Events\"\n" + 
@@ -141,15 +138,22 @@ public class OffHoursMonitor extends AmazonBase {
 	   * Main  Minecraft off hours process killer
 	   * https://github.com/SailingSteve/offhours.git
 	   * Steve Podell
-	   * @param args 0: computer name
+	   * @param args 0: <computer name>, 0|1: "classpath", if you want to print the classpath on startup
 	   */
 	  	public static void main(String[] args) {
-	  		// System.out.println( "STEVE:" + System.getProperty("java.class.path"));
 	  		String computer = "NOT-DEFINED";
 	  		if( args.length > 0 )
 	  			computer = args[0];
+	  		if( Arrays.asList(args).contains("classpath") )
+		  		System.out.println( "Classpath: " + System.getProperty("java.class.path"));
+
 	  		new OffHoursMonitor(computer);
 	 	} 
 }
 
+/*
+4/22/14:  Works great from command line or maven in eclipse!
+Steve-MacBook-Pro-17:offhours steve$ java -cp "./creds:target/offhours-1.0-SNAPSHOT.jar:$(echo lib/*.jar | tr ' ' ':')" main.java.com.podell.OffHoursMonitor CommandLineStevesComputer classpath
 
+
+*/ 

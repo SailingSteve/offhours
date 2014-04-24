@@ -102,7 +102,7 @@ public class AmazonBase {
 			
 			file = new File( filename);
 			s3.putObject("com.podell.test1", key, file );
-			System.out.println("s3 write : " + file.getPath());
+			System.out.println(AmazonBase.logDate() + " ->  s3 write : " + file.getPath());
 			
 			List<Bucket> buckets = s3.listBuckets();
 			for( Bucket bucket : buckets) {
@@ -118,7 +118,7 @@ public class AmazonBase {
 				    objects = s3.listNextBatchOfObjects(objects);				    		
 				} while (objects.isTruncated());
 	
-			System.out.println("You have " + buckets.size() + " Amazon S3 bucket(s), " +
+			System.out.println(AmazonBase.logDate() + " ->  You have " + buckets.size() + " Amazon S3 bucket(s), " +
 	              "containing " + totalItems + " objects with a total size of " + totalSize + " bytes.");
 			}
 		} catch (AmazonServiceException ase) {
@@ -150,7 +150,7 @@ public class AmazonBase {
 	
 	protected static void logger( String s ) {
 		try{
-			String line = new SimpleDateFormat("MM/dd/yyyy k.m").format(new Date()) + ":" + userName + 
+			String line = logDate() + ":" + userName + 
 					":" + computerName + ":" + s;
 		
 			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)));
@@ -159,6 +159,10 @@ public class AmazonBase {
 		}
 		catch(IOException e){} 
 	}  
+	
+	protected static String logDate() {
+		return new SimpleDateFormat("MM/dd/yyyy k:m").format(new Date());
+	}
 
 	protected int minutesSince(Calendar calIn) {
 		Calendar calNow = getNowPST();

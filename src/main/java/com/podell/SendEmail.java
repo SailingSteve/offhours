@@ -1,5 +1,6 @@
 package main.java.com.podell;
 
+import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -58,7 +59,7 @@ public class SendEmail {
 							  props.getProperty("username"), 
 							  props.getProperty("password"));
 					t.sendMessage(msg, msg.getAllRecipients());
-					System.out.println("Successfully sent a gmail email ... " + subject);
+					System.out.println(AmazonBase.logDate() + " ->  Successfully sent a gmail email \"" + subject +"\"");
 			} catch (MessagingException e) {
 				System.out.println("ERR: Caught MessagingException 1: " + e);
 			} finally {
