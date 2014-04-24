@@ -13,11 +13,13 @@ public class OffHoursMonitor extends AmazonBase {
 
 	private static Pattern pattern = Pattern.compile("(\\d+)");
 
-  	static PlayDay[] playDays = new PlayDay[] {
+  	private static PlayDay[] playDays = new PlayDay[] {
   		new PlayDay(Calendar.SUNDAY, 6, 22),
  		new PlayDay(Calendar.FRIDAY, 15, 22),
 		new PlayDay(Calendar.SATURDAY, 6, 22)
   	};
+	
+  	private Calendar calLastLog = null;
 
   	OffHoursMonitor(String computer) {
   		super(playDays);  
@@ -25,21 +27,22 @@ public class OffHoursMonitor extends AmazonBase {
   		 	
   		while( true ) {
   			boolean offHours = isOffHours();
-  			System.out.println( "offHours = " + offHours );
   			String pid = getMineCraftJavaPid();
-
+  			calLastLog = logEvery( calLastLog, 5, "offHours = " + offHours + (String)(( pid.isEmpty() ) ? "" : ", pid = " + pid ));
+ 
 
   			if( ( ! pid.isEmpty() ) && ( offHours ) ) {
-  				System.out.println( "pid = " + pid );
-  				//killPid(pid);
+   				//killPid(pid);
 				//warning();
   				if( calEmailSent == null ) {
   					calEmailSent = getNowPST();
-  					new SendEmail().sendGMail("Minecraft is running on " + computer, "Detected by the OffHoursMonitor Java program. (" + pid + ")" );
+  					new SendEmail().sendGMail("Minecraft is running on " + computer + ".  First detection (" + pid + ")", 
+  							"Detected by the OffHoursMonitor Java program. First detected.  (" + pid + ")" );
   				    s3logger("Minecraft is running on " + computer + ".  First detection by the OffHoursMonitor Java program. (" + pid + ")" );
-  				} else if( minutesSince(calEmailSent) > 10 ) {
+  				} else if( minutesSince(calEmailSent) > 5 ) {
   					calEmailSent = getNowPST();
-  					new SendEmail().sendGMail("Minecraft is running on " + computer, "Detected by the OffHoursMonitor Java program. (" + pid + ")" );
+  					new SendEmail().sendGMail("Minecraft is running on " + computer + ".  5 minute follow up (" + pid + ")", 
+  							"Detected by the OffHoursMonitor Java program.  5 minute follow up.  (" + pid + ")" );
   				}
   			} else {
   				calEmailSent = null;
@@ -51,6 +54,19 @@ public class OffHoursMonitor extends AmazonBase {
   			//System.out.println("bottom of loop, pid = " + pid);
   		}
  
+  	}
+  	
+  	private Calendar logEvery( Calendar cal, int min, String line )
+  	{
+		if( cal == null ) {
+			cal = getNowPST();
+			System.out.println(line);
+		}
+		else if( minutesSince(cal) > min ) {
+			System.out.println(line);
+			cal = getNowPST();
+		}			
+		return cal;
   	}
 
     /**
@@ -128,13 +144,12 @@ public class OffHoursMonitor extends AmazonBase {
 	   * @param args 0: computer name
 	   */
 	  	public static void main(String[] args) {
-	  		System.out.println( "STEVE:" + System.getProperty("java.class.path"));
+	  		// System.out.println( "STEVE:" + System.getProperty("java.class.path"));
 	  		String computer = "NOT-DEFINED";
 	  		if( args.length > 0 )
 	  			computer = args[0];
 	  		new OffHoursMonitor(computer);
-	 	}
-	 
+	 	} 
 }
 
 
