@@ -28,7 +28,7 @@
               <mainClass>main.java.com.podell.OffHoursMonitor</mainClass>
             </manifest>
             <manifestEntries>
-                <Class-Path>/Users/stevepodell/aws-java-sdk/</Class-Path>
+                <Class-Path>lib</Class-Path>
             </manifestEntries>
           </archive>
 		  <resources>

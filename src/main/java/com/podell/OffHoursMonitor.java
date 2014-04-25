@@ -155,5 +155,6 @@ public class OffHoursMonitor extends AmazonBase {
 4/22/14:  Works great from command line or maven in eclipse!
 Steve-MacBook-Pro-17:offhours steve$ java -cp "./creds:target/offhours-1.0-SNAPSHOT.jar:$(echo lib/*.jar | tr ' ' ':')" main.java.com.podell.OffHoursMonitor CommandLineStevesComputer classpath
 
+sudo launchctl load /Users/Steve/offhours/com.podell.java.offhours.plist
 
 */ 
