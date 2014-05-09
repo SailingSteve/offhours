@@ -68,11 +68,21 @@
       <artifactId>aws-java-sdk</artifactId>
       <version>1.7.5</version>
     </dependency>
+	<dependency>
+	  <groupId>com.twilio.sdk</groupId>
+	  <artifactId>twilio-java-sdk</artifactId>
+	  <version>3.4.1</version>
+	</dependency>
     <dependency>
 	  <groupId>javax.mail</groupId>
 	  <artifactId>mail</artifactId>
 	  <version>1.4.7</version>
     </dependency>
+    <dependency>
+	  <groupId>org.codehaus.jackson</groupId>
+	  <artifactId>jackson-core-asl</artifactId>
+	  <version>1.9.13</version>
+    </dependency>            
   </dependencies>
                
 

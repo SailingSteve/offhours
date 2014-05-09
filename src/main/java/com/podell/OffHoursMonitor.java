@@ -31,7 +31,10 @@ public class OffHoursMonitor extends AmazonBase {
   		Calendar calEmailSent = null;
   		 	
   		while( true ) {
-  			boolean offHours = isOffHours();
+  			boolean offHours = 
+true;
+  					//isOffHours();
+
   			String pid = getMineCraftJavaPid();
   			calLastLog = logEvery( calLastLog, 5, AmazonBase.logDate() + " ->  offHours = " + offHours + (String)(( pid.isEmpty() ) ? "" : ", pid = " + pid ));
  
@@ -43,6 +46,7 @@ public class OffHoursMonitor extends AmazonBase {
   					calEmailSent = getNowPST();
   					new SendEmail().sendGMail("Minecraft is running on " + computer + ".  First detection (" + pid + ")", 
   							"Detected by the OffHoursMonitor Java program. First detected.  (" + pid + ")" );
+  					new Twilio().sendSMS("Minecraft is running on " + computer + ".  First detection (" + pid + ")");
   				    s3logger("Minecraft is running on " + computer + ".  First detection by the OffHoursMonitor Java program. (" + pid + ")" );
   				} else if( minutesSince(calEmailSent) > 5 ) {
   					calEmailSent = getNowPST();

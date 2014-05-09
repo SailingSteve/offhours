@@ -3,5 +3,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="com.amazonaws.eclipse.sdk.AWS_JAVA_SDK"/>
+	<classpathentry kind="lib" path="/Users/stevepodell/.m2/repository/com/twilio/sdk/twilio-java-sdk/3.4.1/twilio-java-sdk-3.4.1.jar"/>
+	<classpathentry kind="lib" path="/Users/stevepodell/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar"/>
+	<classpathentry kind="lib" path="/Users/stevepodell/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.3/jackson-mapper-asl-1.9.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
