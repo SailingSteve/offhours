@@ -13,14 +13,11 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 /**
+ * Send an SMS through the twilio API
  * @author stevepodell
- *
  */
 public class Twilio {
 
-//	 public static final String ACCOUNT_SID = "ACebbc4352e4baa66f1ffb093bb1eec7ba";
-//	 public static final String AUTH_TOKEN = "48fb1eb771b45299ece8f19d411d8827";
-	 
 	 public void sendSMS( String messageStr ) {
 		 
 		Properties props = new Properties();
@@ -33,7 +30,7 @@ public class Twilio {
 		}		    
 		 
 		TwilioRestClient client = new TwilioRestClient(props.getProperty("sid"), props.getProperty("auth"));
-		// Build a filter for the MessageList
+
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("Body", messageStr));
 		params.add(new BasicNameValuePair("To", props.getProperty("to")));

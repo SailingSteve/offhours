@@ -26,14 +26,13 @@ public class OffHoursMonitor extends AmazonBase {
 	
   	private Calendar calLastLog = null;
 
+  	// Constructor
   	OffHoursMonitor(String computer) {
   		super(playDays);  
   		Calendar calEmailSent = null;
   		 	
   		while( true ) {
-  			boolean offHours = 
-true;
-  					//isOffHours();
+  			boolean offHours = isOffHours();
 
   			String pid = getMineCraftJavaPid();
   			calLastLog = logEvery( calLastLog, 5, AmazonBase.logDate() + " ->  offHours = " + offHours + (String)(( pid.isEmpty() ) ? "" : ", pid = " + pid ));
