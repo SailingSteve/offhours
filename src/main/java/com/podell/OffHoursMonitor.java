@@ -8,7 +8,12 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 
-
+/**
+ * Monitor and alert of off hours usage of Minecraft
+ * Installed on each of the two Macs that my kids use
+ * 
+ * @author stevepodell
+ */
 public class OffHoursMonitor extends AmazonBase {
 
 	private static Pattern pattern = Pattern.compile("(\\d+)");

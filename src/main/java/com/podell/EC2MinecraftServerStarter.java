@@ -27,7 +27,7 @@ import com.amazonaws.services.ec2.model.StopInstancesResult;
  * during allowed play hours, for all kids.  If manually started on an off day, 
  * and then not manually stopped, then kill it at midnight.
 */
-public class MineStarter extends AmazonBase {
+public class EC2MinecraftServerStarter extends AmazonBase {
 
 
 	static PlayDay[] playDays = new PlayDay[] {
@@ -40,7 +40,7 @@ public class MineStarter extends AmazonBase {
 		new PlayDay(Calendar.SATURDAY, 6, 22)
   	};
 	
-    protected MineStarter(PlayDay[] playDays, String[] args) {
+    protected EC2MinecraftServerStarter(PlayDay[] playDays, String[] args) {
 		super(playDays);
 		       
         if ( args.length > 0 ) {
@@ -205,7 +205,7 @@ public class MineStarter extends AmazonBase {
          System.out.println("================== MineStarter =========================");
    		//System.out.println( "STEVE:" + System.getProperty("java.class.path"));
 
-         new MineStarter(playDays, args);
+         new EC2MinecraftServerStarter(playDays, args);
      }   
      
 

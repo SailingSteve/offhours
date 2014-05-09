@@ -1,6 +1,5 @@
 package main.java.com.podell;
 
-import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.Message;
