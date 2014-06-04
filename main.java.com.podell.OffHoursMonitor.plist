@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC -//Apple Computer//DTD PLIST 1.0//EN
+http://www.apple.com/DTDs/PropertyList-1.0.dtd >
+<plist version="1.0">
+    <dict>
+        <key>Label</key>
+        <string>main.java.com.podell.OffHoursMonitor</string>
+ 
+        <key>ProgramArguments</key>
+        <array>
+            <string>/Users/Steve/offhours/offhrs.sh</string>
+        </array>
+
+        <key>OnDemand</key>
+	<true/>
+
+        <key>RunAtLoad</key>
+        <true/>
+
+        <key>KeepAlive</key>
+	<true/>
+
+        <key>StandardErrorPath</key>
+        <string>/Users/Steve/offhours/err.log</string>
+
+        <key>StandardOutPath</key>
+        <string>/Users/Steve/offhours/out.log</string>
+
+        <key>WorkingDirectory</key>
+        <string>/Users/Steve/offhours</string>
+
+	<key>Debug</key>
+	<true/>
+    </dict>
+</plist>
+
+<!— On bigimac, saved in ~/Library/LaunchDaemons/main.java.com.podell.OffHoursMonitor.plist —>
