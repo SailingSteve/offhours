@@ -9,7 +9,7 @@
      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
      <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
    </properties>
-  <name>Maven Quick Start Archetype</name>
+  <name>Hue for FFDC</name>
   <url>http://maven.apache.org</url>
 
   
@@ -23,13 +23,11 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-<!--                
-			  <mainClass>main.java.com.podell.MineStarter</mainClass>    
--->
-              <mainClass>main.java.com.podell.OffHoursMonitor</mainClass>
+              <mainClass>main.java.com.podell.HueController</mainClass>
             </manifest>
             <manifestEntries>
                 <Class-Path>lib</Class-Path>
+                <Class-Path>creds</Class-Path>
             </manifestEntries>
           </archive>
 		  <resources>
@@ -46,16 +44,13 @@
         <configuration>
           <programs>
             <program>
-<!--                
-              <mainClass>main.java.com.podell.MineStarter</mainClass>
--->
-              <mainClass>main.java.com.podell.OffHoursMonitor</mainClass>
+              <mainClass>main.java.com.podell.HueController</mainClass>
               <id>app</id>
             </program>
           </programs>
         </configuration>
       </plugin>
-<!-- Copies all the latest jars to target/offhours-1.0-SNAPSHOT/WEB-INF/lib (for ease of command line use, I copy those to the ./lib dir)-->
+<!--  Copies all the latest jars to target/offhours-1.0-SNAPSHOT/WEB-INF/lib (for ease of command line use, I copy those to the ./lib dir)-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
@@ -76,6 +71,7 @@
           </execution>
         </executions>
       </plugin>
+
     </plugins>
   </build>
 
@@ -85,6 +81,26 @@
 	  <artifactId>maven-jar-plugin</artifactId>
 	  <version>2.4</version>
     </dependency>            
+   <dependency>
+	  <groupId>nl.hue</groupId>
+	  <artifactId>hueLib</artifactId>
+	  <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode.json-simple</groupId>
+      <artifactId>json-simple</artifactId>
+      <version>1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.3.5</version>
+    </dependency>
+    <dependency>
+	  <groupId>com.google.code.gson</groupId>
+	  <artifactId>gson</artifactId>
+	  <version>2.3</version>
+    </dependency>
     <dependency>
       <groupId>com.amazonaws</groupId>
       <artifactId>aws-java-sdk</artifactId>
@@ -105,7 +121,12 @@
 	  <artifactId>jackson-core-asl</artifactId>
 	  <version>1.9.13</version>
     </dependency>            
+    <dependency>
+	  <groupId>commons-io</groupId>
+	  <artifactId>commons-io</artifactId>
+	  <version>2.4</version>
+    </dependency>
   </dependencies>
                
-   <artifactId>offhours</artifactId>
+  <artifactId>hue3</artifactId>
 </project>

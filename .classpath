@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="nl"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="com.amazonaws.eclipse.sdk.AWS_JAVA_SDK"/>
 	<classpathentry kind="lib" path="/Users/stevepodell/.m2/repository/com/twilio/sdk/twilio-java-sdk/3.4.1/twilio-java-sdk-3.4.1.jar"/>
 	<classpathentry kind="lib" path="/Users/stevepodell/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar"/>
 	<classpathentry kind="lib" path="/Users/stevepodell/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.3/jackson-mapper-asl-1.9.3.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="lib" path="/jue/bin"/>
+	<classpathentry kind="lib" path="target/dependency/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="/Users/stevepodell/Documents/workspace/hue3/creds/config.properties"/>
+	<classpathentry kind="lib" path="creds/config.properties"/>
+	<classpathentry kind="lib" path="target/dependency/gson-2.3.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>
